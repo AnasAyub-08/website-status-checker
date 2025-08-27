@@ -16,7 +16,6 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
 app.config['SESSION_REFRESH_EACH_REQUEST'] = True
 
 db.init_app(app)
-migrate = Migrate(app, db)
 
 login_manager = LoginManager(app)
 login_manager.login_view = "routes.login"
@@ -43,8 +42,3 @@ scheduler.start()
 # Shut down the scheduler when exiting the app
 import atexit
 atexit.register(lambda: scheduler.shutdown())
-
-if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-    app.run(debug=True)
