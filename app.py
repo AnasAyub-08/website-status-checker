@@ -6,6 +6,7 @@ from config import Config
 from apscheduler.schedulers.background import BackgroundScheduler
 from tasks import check_websites
 from datetime import timedelta
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -15,6 +16,7 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
 app.config['SESSION_REFRESH_EACH_REQUEST'] = True
 
 db.init_app(app)
+migrate = Migrate(app, db)
 
 login_manager = LoginManager(app)
 login_manager.login_view = "routes.login"
