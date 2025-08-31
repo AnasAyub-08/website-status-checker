@@ -16,6 +16,9 @@ app.config['SESSION_REFRESH_EACH_REQUEST'] = True
 
 db.init_app(app)
 
+from flask_migrate import Migrate
+migrate = Migrate(app, db)
+
 login_manager = LoginManager(app)
 login_manager.login_view = "routes.login"
 
@@ -44,5 +47,4 @@ atexit.register(lambda: scheduler.shutdown())
 
 if __name__ == "__main__":
     with app.app_context():
-        db.create_all()
-    app.run(debug=True)
+        app.run(debug=True)
