@@ -6,7 +6,6 @@ from config import Config
 from apscheduler.schedulers.background import BackgroundScheduler
 from tasks import check_websites
 from datetime import timedelta
-from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -42,3 +41,8 @@ scheduler.start()
 # Shut down the scheduler when exiting the app
 import atexit
 atexit.register(lambda: scheduler.shutdown())
+
+if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
+    app.run(debug=True)
