@@ -79,10 +79,10 @@ def dashboard():
     websites = Website.query.filter_by(user_id=current_user.id).all()
     return render_template("dashboard.html", websites=websites, now=datetime.now())
 
-@routes.route("/delete_website/<int:site_id>", methods=["POST"])
+@routes.route("/delete_website/<int:website_id>", methods=["POST"])
 @login_required
-def delete_website(site_id):
-    site = Website.query.get_or_404(site_id)
+def delete_website(website_id):
+    site = Website.query.get_or_404(website_id)
 
     # Ensure only the owner can delete
     if site.owner != current_user:
